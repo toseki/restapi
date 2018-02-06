@@ -14,7 +14,7 @@ func main() {
 	e.Use(middleware.Recover())
 	e.Use(auth.BasicAuth())
 
-	e.GET("/test/:param1/:param2", handler.MainPage())
+	e.GET("/test/:userparam/:param", handler.MainPage())
 
 	e.Start(":8080")
 }
