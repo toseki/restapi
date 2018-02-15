@@ -7,6 +7,16 @@ import (
 	"github.com/labstack/echo"
 )
 
+type (
+	txJSON struct {
+		//DevEUI    string `json:"devEUI"`
+		Reference string `json:"ref"`  // reference -> ref FORMAT CHANGE at 2017/10/19
+		Confirmed bool   `json:"cnf"`  // confirmed -> cnf
+		FPort     uint8  `json:"port"` // fPort -> port
+		Data      string `json:"data"`
+	}
+)
+
 // MainPage test response
 func MainPage() echo.HandlerFunc {
 	return func(c echo.Context) error {
@@ -22,4 +32,15 @@ func MainPage() echo.HandlerFunc {
 
 		return c.String(http.StatusOK, "test param:"+userparam+":"+param)
 	}
+}
+
+func POSTData(c echo.Context) error {
+	txpayload := new(txJSON)
+	if err := c.Bind(txpayload); err != nil {
+		return err
+	}
+	//dec := json.NewDecoder(bytes.NewReader(txpayload))
+	fmt.Printf("txpayload= %#v\n", txpayload)
+
+	return c.String(http.StatusOK, "txJSON:"+txpayload.Reference)
 }

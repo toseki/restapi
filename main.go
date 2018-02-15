@@ -15,6 +15,7 @@ func main() {
 	e.Use(auth.BasicAuth())
 
 	e.GET("/test/:userparam/:param", handler.MainPage())
+	e.POST("/test/tx", handler.POSTData)
 
 	e.Start(":8080")
 }

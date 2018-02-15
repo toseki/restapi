@@ -10,7 +10,7 @@ import (
 
 // BasicAuth username password check
 func BasicAuth() echo.MiddlewareFunc {
-	return middleware.BasicAuth(func(username, password string) bool {
+	return middleware.BasicAuth(func(username, password string, c echo.Context) (bool, error) {
 		salt := "salt" // sample salt string
 		//passwd := "password"
 		//saltpasswd := sha256.Sum256([]byte(salt + passwd))
@@ -19,6 +19,6 @@ func BasicAuth() echo.MiddlewareFunc {
 
 		fmt.Println("saltpassword:", authchkhex)
 
-		return username == "test-1" && sha256hex == authchkhex
+		return username == "test-1" && sha256hex == authchkhex, nil
 	})
 }
